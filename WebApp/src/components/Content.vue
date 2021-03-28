@@ -1,12 +1,33 @@
 <template>
     <main>
-        <h1>Test</h1>
+        <article v-for="article in articles" :key="article._id">
+            <h1>{{article.title}}</h1>
+            <p>{{article.blurb}}</p>
+        </article>
     </main>
 </template>
 
 <script>
 export default {
-    name: "Content"
+    name: "Content",
+    data()  {
+      return { 
+          articles: []
+      }
+    },
+    created() {
+      this.getArticles();
+    },
+    methods: {
+        async getArticles() {
+            fetch('http://localhost:3080/api/articles').then(data =>{
+                data.json().then(json => {
+                    this.articles = json;
+                });
+            });
+            
+        }
+    }
 }
 </script>
 
