@@ -1,8 +1,6 @@
 //Import requirements
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv/config');
 
 //Important settings
 const APP_PORT = 3080;
@@ -24,7 +22,7 @@ var corsOptions = {
 }
 
 //Setup the middelwares
-app.use(cors(corsOptions));
+app.use(cors()); //TODO: Add cors options to restrict access
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
@@ -33,11 +31,9 @@ app.use(express.urlencoded({
 //Setup routes
 app.use('/api/articles', articleRoute);
 
-//Make connection to the DB and if the conneciton is successfull start the web server
-mongoose.connect(process.env.DB_CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
-    console.log("Connected to mongoDB!");
-    app.listen(APP_PORT, () => {
-        console.log(`Started listening on http://localhost:${APP_PORT}/`);
-    });
+//Start server
+app.listen(APP_PORT, () => {
+    console.log(`Started listening on http://localhost:${APP_PORT}/`);
 });
+
 
