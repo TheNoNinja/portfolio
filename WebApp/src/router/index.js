@@ -16,7 +16,7 @@ const routes = [
         component: Article,
         props: true,
         beforeEnter(to, from, next){
-            const isArticleFound = false
+            const isArticleFound = true
 
             if (isArticleFound){
                 return next()

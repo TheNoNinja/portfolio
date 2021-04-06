@@ -1,22 +1,14 @@
 <template>
   <h1>Home</h1>
-  <button @click="openModal">open Modal</button>
-
+  <ArticleCardList />
 </template>
 
 <script>
-import { ModalBus } from '@/events'
-import Test from '@/components/Test'
-
+import ArticleCardList from "@/components/ArticleCardList";
 export default {
   name: "Home",
-  methods: {
-    openModal(){
-      ModalBus.$emit('open', {
-        component: Test,
-        title: 'Test Modal'
-      })
-    }
+  components: {
+    ArticleCardList
   }
 }
 </script>
