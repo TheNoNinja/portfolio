@@ -11,32 +11,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: "PageArticle",
+  data(){
+    return {
+      article: {}
+    }
+  },
   props: {
     id: {
       required: true,
       type: String
     }
   },
-  data(){
-    return {
-      article: {}
-    }
+  computed: {
+    ...mapGetters({
+      getArticleById: 'getArticleById'
+    })
   },
   created() {
-    this.getArticle()
-  },
-  methods: {
-    async getArticle(){
-      try {
-        const result = await fetch(`http://localhost:3080/api/articles/${this.id}`)
-        this.article = await result.json()
-      }
-      catch (error){
-        console.log(error)
-      }
-    }
+    this.article = this.getArticleById(this.id)
   }
 }
 </script>

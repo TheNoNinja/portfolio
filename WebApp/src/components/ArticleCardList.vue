@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ArticleCard from "@/components/ArticleCard";
 
 export default {
@@ -12,24 +13,10 @@ export default {
   components: {
     ArticleCard
   },
-  data() {
-    return {
-      articles: []
-    }
-  },
-  methods: {
-    async getArticles(){
-      try {
-        const result = await fetch("http://localhost:3080/api/articles")
-        this.articles = await result.json()
-      }
-      catch (error){
-        console.log(error)
-      }
-    }
-  },
-  created() {
-    this.getArticles()
+  computed:{
+    ...mapState({
+      articles: state => state.articles.items
+    })
   }
 }
 </script>

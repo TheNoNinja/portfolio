@@ -7,12 +7,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import ModalRoot from "@/components/ModalRoot"
 
 export default {
   name: 'App',
   components:{
     ModalRoot
+  },
+  methods: {
+    ...mapActions({
+      fetchArticles: 'fetchArticles'
+    })
+  },
+  created(){
+    this.fetchArticles()
   }
 }
 </script>
