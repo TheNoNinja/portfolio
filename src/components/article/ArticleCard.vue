@@ -21,7 +21,7 @@ export default {
 
 <style scoped lang="scss">
 .router-link{
-  background-color: #1B1C20;
+  background-color: $black-light;
   padding: 0.5rem;
 }
 </style>

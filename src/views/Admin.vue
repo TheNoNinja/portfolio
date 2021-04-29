@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h1>Sign in:</h1>
     <label for="email">Email:</label>
     <input v-model="email" type="email" id="email" name="email" />
     <label for="password">Password:</label>
@@ -11,7 +12,6 @@
 
 <script>
 import {auth} from '@/firebase'
-import {ModalBus} from "@/events";
 
 export default {
   data(){
@@ -28,7 +28,7 @@ export default {
 
       try{
         await auth.signInWithEmailAndPassword(this.email, this.password);
-        ModalBus.$emit('close')
+        await this.$router.push({name:"Home"});
       }
       catch (error) {
         this.errorMessage = error.message;
@@ -40,8 +40,10 @@ export default {
 
 <style scoped lang="scss">
 .container {
+  margin: 1rem auto;
+  background-color: #1B1C20;
   width: 20rem;
-  padding-top: 1rem;
+  padding: 1rem;
 }
 
 label{

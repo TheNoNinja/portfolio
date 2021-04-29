@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import {db} from "@/firebase";
 
 import Home from "@/views/Home";
+import Admin from "@/views/Admin";
 import Article from "@/views/Article";
 import Error404 from "@/views/Error404";
 
@@ -10,6 +11,11 @@ const routes = [
         path:"/",
         name: "Home",
         component: Home
+    },
+    {
+        path:"/admin",
+        name: "Admin",
+        component: Admin
     },
     {
         path: "/category/:categoryId",

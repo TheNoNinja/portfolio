@@ -11,7 +11,7 @@
 
           <label>Category</label>
           <select name="category" id="category" v-model="article.category">
-            <option v-for="category in categories" :key="category.name" :value="category.id">{{category.name}}</option>
+            <option v-for="category in orderedCategories" :key="category.name" :value="category.id">{{category.name}}</option>
           </select>
 
           <label>Blurb</label>
@@ -54,6 +54,11 @@ export default {
       categories: db.collection("categories")
     }
   },
+  computed: {
+    orderedCategories: function()  {
+      return [...this.categories].sort((a, b) => a.rank - b.rank);
+    }
+  },
   methods: {
     updateMarkdown(){
       const title = this.article.title ? "# " + this.article.title + "\n" : '';
@@ -94,9 +99,6 @@ export default {
           console.log("Article id already exists"); //TODO: Add better error handling
         }
       });
-      //const storageRef = storage.ref("articles").child()
-
-
     }
   }
 
