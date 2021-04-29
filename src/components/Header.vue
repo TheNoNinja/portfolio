@@ -1,20 +1,19 @@
 <template>
   <header>
-    <div class="titles">
-      <router-link :to="{ name: 'Home'}">
+    <router-link :to="{ name: 'Home'}">
+      <div class="titles">
         <h1 class="title">//CHRISTIAAN BRANT</h1>
-      </router-link>
-      <h3 class="sub-title">//PORTFOLIO</h3>
-    </div>
+        <h3 class="sub-title">//PORTFOLIO</h3>
+      </div>
+    </router-link>
     <nav class="categories">
-      <router-link v-for="category of categories" :key="category.name" class="category" :to="{name:'Category', params: {categoryId:category.id}}">{{category.name}}</router-link>
+      <router-link v-for="category of orderedCategories" :key="category.name" class="category" :to="{name: category.name === 'Home' ? 'Home' : 'Category', params: {categoryId:category.id}}">{{category.name}}</router-link>
 
       <UserConditional>
         <template v-slot:user="{user}">
           <a v-if="user" href="#" class="category categories" @click="openCategoriesModal()">Edit categories</a>
           <a v-if="user" href="#" class="category categories" @click="openArticleModal()">Add article</a>
-          <a v-if="user" href="#" class="category log-out" @click="auth.signOut()">Log out {{user.uid}}</a>
-          <a v-else href="#" class="category log-in" @click="openLoginModal()">Log in</a>
+          <a v-if="user" href="#" class="category Sign-in" @click="auth.signOut()">Sign out</a>
         </template>
       </UserConditional>
     </nav>
@@ -25,7 +24,6 @@
 import {auth, db} from "@/firebase";
 import {ModalBus} from "@/events";
 import UserConditional from "@/components/UserConditional";
-import LoginForm from "@/components/LoginForm";
 import CategoryForm from "@/components/CategoryForm";
 import ArticleForm from "@/components/article/ArticleForm";
 
@@ -44,13 +42,12 @@ export default {
       categories: db.collection("categories")
     }
   },
+  computed:{
+    orderedCategories: function()  {
+      return [...this.categories].sort((a, b) => a.rank - b.rank);
+    }
+  },
   methods:{
-    openLoginModal(){
-      ModalBus.$emit("open", {
-        component: LoginForm,
-        title: "Login"
-      });
-    },
     openCategoriesModal(){
       ModalBus.$emit("open", {
         component: CategoryForm,
@@ -69,7 +66,7 @@ export default {
 
 <style scoped lang="scss">
 header{
-  background-color: #1B1C20;
+  background-color: $black-light;
 }
 
 .titles {

@@ -16,6 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "assets/css/variables.scss";
 @import "assets/css/reset.scss";
 @import "assets/css/highlighting.scss";
 
@@ -24,9 +25,6 @@ export default {
 body {
   font-family: 'Roboto', sans-serif;
 
-  width: 100vw;
-  height: 100vh;
-
-  background-color: #0B0C10;
+  background-color: $black-dark;
 }
 </style>
