@@ -64,7 +64,7 @@ export default {
       const title = this.article.title ? "# " + this.article.title + "\n" : '';
       const blurb = this.article.blurb ? this.article.blurb + "\n" : '';
 
-      document.getElementById('article-preview').innerHTML = markdown.render(title + blurb + this.article.content);
+      document.getElementById('article-preview').innerHTML = markdown.render(title + blurb + this.article.content.replace(/\n{2,}/g, '<br/>\n'));
     },
     updateThumbnail(event){
       this.thumbnail = event.target.files[0];
@@ -74,7 +74,7 @@ export default {
         console.log("no valid values"); //TODO: Add better error handling
         return
       }
-
+      this.article.content = this.article.content.replace(/\n{2,}/g, '<br/>\n');
       const articleId = this.article.title.replace(/[^a-z0-9]/gi, '-').replace(/-+[^a-z0-9]/gi, '').replace(/^-/gi, '');
 
       if (new Blob([articleId]).size > 1499){
