@@ -40,8 +40,8 @@ export default {
       e.path[0].classList.remove("dragging");
       const children = [...e.path[1].children];
       children.forEach((value, index) => {
-        db.collection("categories").doc(value.children[0].innerText.replace(/[^a-z0-9]/gi, '-').replace(/-+[^a-z0-9]/gi, '').replace(/^-/gi, '')).set({
-          name: value.children[0].innerText,
+        db.collection("categories").doc(value.children[1].innerText.replace(/[^a-z0-9]/gi, '-').replace(/-+[^a-z0-9]/gi, '').replace(/^-/gi, '')).set({
+          name: value.children[1].innerText,
           rank: index
         });
       });

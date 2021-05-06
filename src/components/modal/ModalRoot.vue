@@ -1,6 +1,6 @@
 <template>
   <Modal :isOpen="!!component" :title="title" @onClose="handleClose">
-    <component :is="component" @onClose="handleClose" v-bind="props"/>
+    <component :is="component" @onClose="handleClose" v-bind="{...props}"/>
   </Modal>
 </template>
 

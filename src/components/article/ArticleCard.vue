@@ -8,18 +8,51 @@
         <div class="article-content">
           <h2>{{article.title}}</h2>
           <p>{{article.blurb}}</p>
-          </div>
+        </div>
       </div>
     </router-link>
+    <div class="article-editor">
+      <UserConditional>
+        <template v-slot:user="{user}">
+          <a v-if="user" href="#" class="category categories" @click="openArticleFormModal"><span class="material-icons">edit</span></a>
+          <a v-if="user" href="#" class="category Sign-in" @click="deleteArticle"><span class="material-icons">delete</span></a>
+        </template>
+      </UserConditional>
+    </div>
   </div>
 </template>
 
 <script>
+import {db} from "@/firebase";
+import {ModalBus} from "@/events";
+import UserConditional from "@/components/UserConditional";
+import ArticleForm from "@/components/article/ArticleForm";
+
 export default {
+  components:{
+    UserConditional
+  },
   props:{
     article: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    openArticleFormModal(){
+      ModalBus.$emit('open', {
+        title: "Edit article",
+        component: ArticleForm,
+        props: {
+          article: {
+            id: this.article.id,
+            ...this.article
+          }
+        }
+      });
+    },
+    async deleteArticle(){
+      await db.collection("articles").doc(this.article.id).delete();
     }
   }
 }
@@ -27,10 +60,9 @@ export default {
 
 <style scoped lang="scss">
 .container{
+  display: grid;
   background-color: $black-light;
-  //padding: 0.5rem;
 }
-
 .article-image{
   overflow:hidden;
   height: 250px;
@@ -67,5 +99,16 @@ img:hover {
 
 .article-content h2:hover{
   text-shadow: -0.1rem -0.1rem $pink, 0.1rem 0.1rem $blue-dark;
+}
+
+.article-editor {
+  display: flex;
+  align-items: flex-end;
+  padding: 0.5rem;
+  gap: 1rem;
+
+  a span {
+  font-size: 2rem;
+  }
 }
 </style>
