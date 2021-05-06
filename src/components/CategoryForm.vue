@@ -2,7 +2,7 @@
   <div class="container">
     <div v-if="categories" class="category-list draggable-container" @dragover="dragOver">
       <div v-for="category of orderedCategories" :key="category.id" :class="'category-item draggable ' + category.id + '-category'" draggable="true" @dragstart="dragStart" @dragend="dragEnd">
-        <p>{{category.name}}</p><button @click="removeCategory(category)">X</button>
+        <span class="material-icons">drag_indicator</span><p>{{category.name}}</p><button @click="removeCategory(category)">X</button>
       </div>
     </div>
     <div class="category-form">
@@ -104,6 +104,10 @@ export default {
 <style scoped lang="scss">
 .container {
   width: 20rem;
+}
+
+.category-list p {
+  flex-grow: 1;
 }
 
 .category-item{

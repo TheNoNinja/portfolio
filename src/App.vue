@@ -20,11 +20,18 @@ export default {
 @import "assets/css/reset.scss";
 @import "assets/css/highlighting.scss";
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+h1, h2, h3, h4, h5, h6 {
+  font-family: $pixel-font;
+}
 
 body {
-  font-family: 'Roboto', sans-serif;
-
+  font-family: $normal-font;
   background-color: $black-dark;
+  color: $white-dark;
+}
+
+a {
+  color: $white-dark;
+  text-decoration: none;
 }
 </style>
