@@ -95,7 +95,7 @@ export default {
         line-height: 2rem;
 
         transition: text-shadow 0.5s ease;
-        text-shadow: 0 0 $pink, 0 0 $blue-dark;
+        text-shadow: 0 0 rgba($pink, 0), 0 0 rgba($blue-dark, 0);
 
         &:hover {
           text-shadow: -0.1rem -0.1rem $pink, 0.1rem 0.1rem $blue-dark;
