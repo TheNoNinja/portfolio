@@ -107,6 +107,7 @@ export default {
   .article-editor {
     display: flex;
     align-items: flex-end;
+    justify-content: space-evenly;
     padding: 0.5rem;
     gap: 1rem;
 

@@ -1,7 +1,7 @@
 <template>
   <article>
     <img v-if="article" :src="article.thumbnail" :alt="article.id + '-thumbnail'"/>
-    <div id="article">
+    <div id="article" class="markdown">
 
     </div>
   </article>
@@ -44,14 +44,14 @@ export default {
 
 
 article {
-  padding: 1rem;
-  margin: 1rem auto;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
   width: 80vw;
   background-color: $black-light;
 
   @media only screen and (max-width: 540px) {
-    width: 100vw;
-    padding: 0.5rem;
+    width: calc(100% - 1rem);
+    margin: 0.5rem;
   }
 
   img {

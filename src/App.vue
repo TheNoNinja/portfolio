@@ -18,7 +18,7 @@ export default {
 <style lang="scss">
 @import "assets/css/variables.scss";
 @import "assets/css/reset.scss";
-@import "assets/css/highlighting.scss";
+@import "assets/css/markdown.scss";
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $pixel-font;

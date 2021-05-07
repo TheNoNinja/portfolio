@@ -7,7 +7,6 @@ const md = require('markdown-it')({
     langPrefix: 'lang-',
     linkify: true,
     typographer: true,
-    quotes: '""\'\'',
     highlight: (str, lang) => {
         if (lang && highlightJS.getLanguage(lang)){
             try {

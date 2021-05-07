@@ -22,7 +22,7 @@
         </div>
       </div>
       <div>
-        <div v-if=" articleToSave.title || articleToSave.blurb || articleToSave.content" id="article-preview">
+        <div v-if=" articleToSave.title || articleToSave.blurb || articleToSave.content" id="article-preview" class="markdown">
 
         </div>
       </div>
@@ -76,7 +76,7 @@ export default {
       const title = this.articleToSave.title ? "# " + this.articleToSave.title + "\n" : '';
       const blurb = this.articleToSave.blurb ? this.articleToSave.blurb + "\n" : '';
 
-      document.getElementById('article-preview').innerHTML = markdown.render(title + blurb + this.articleToSave.content.replace(/\n{2,}/g, '<br/>\n'));
+      document.getElementById('article-preview').innerHTML = markdown.render(title + blurb + this.articleToSave.content);
     },
     updateThumbnail(event){
       this.thumbnail = event.target.files[0];
@@ -93,7 +93,6 @@ export default {
         console.log("no valid values"); //TODO: Add better error handling
         return
       }
-      this.articleToSave.content = this.articleToSave.content.replace(/\n{2,}/g, '<br/>\n');
 
       await db.collection("articles").doc(this.articleToSave.id).set({
         title: this.articleToSave.title,
@@ -108,9 +107,8 @@ export default {
         console.log("no valid values"); //TODO: Add better error handling
         return
       }
-      this.articleToSave.content = this.articleToSave.content.replace(/\n{2,}/g, '<br/>\n');
 
-      const articleId = this.articleToSave.title.replace(/[^a-z0-9]/gi, '-').replace(/-+[^a-z0-9]/gi, '').replace(/^-/gi, '')
+      const articleId = this.articleToSave.title.replace(/[^a-z0-9]/gi, '-').replace(/-+[^a-z0-9]/gi, '').replace(/^-/gi, '');
 
       if (new Blob([articleId]).size > 1499){
         console.log("article title to long"); //TODO: Add better error handling
@@ -163,7 +161,7 @@ export default {
     textarea{
       max-width: 100%;
       min-width: 100%;
-
+      white-space: pre-wrap;
     }
   }
 
@@ -171,7 +169,6 @@ export default {
     margin-left: 1rem;
     max-width: 60rem;
     line-break: auto;
-    background-color: #0B0C10;
     padding: 0.5rem;
   }
 }
