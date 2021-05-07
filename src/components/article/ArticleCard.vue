@@ -75,11 +75,6 @@ export default {
         filter: grayscale(90%);
         object-fit: cover;
         transition: all 0.1s ease-in-out;
-
-        &:hover {
-          filter: grayscale(0%);
-          transform: scale(1.1);
-        }
       }
     }
 
@@ -96,11 +91,18 @@ export default {
 
         transition: text-shadow 0.5s ease;
         text-shadow: 0 0 rgba($pink, 0), 0 0 rgba($blue-dark, 0);
-
-        &:hover {
-          text-shadow: -0.1rem -0.1rem $pink, 0.1rem 0.1rem $blue-dark;
-        }
       }
+    }
+  }
+
+  &:hover .article-card {
+    .article-image .image {
+      filter: grayscale(0%);
+      transform: scale(1.1);
+    }
+
+    .article-content h2 {
+      text-shadow: -0.1rem -0.1rem $pink, 0.1rem 0.1rem $blue-dark;
     }
   }
 
