@@ -1,6 +1,10 @@
 .markdown {
-  h1:first-child{
+  & > *:first-child{
     margin-top: 0.5rem;
+  }
+
+  & > *:last-child{
+    margin-bottom: 0;
   }
 
   & > * {
@@ -38,6 +42,11 @@
   table {
     border: 0.2rem solid $black-dark;
     padding: 0.1rem;
+    border-collapse: collapse;
+
+    thead tr th {
+      border-bottom: 0.3rem solid $black-dark;
+    }
 
     th, td {
       border: 0.1rem solid $black-dark;
@@ -65,7 +74,12 @@
   blockquote {
     background-color: $black-dark;
     padding: 0.5rem;
-    border-left: 0.2rem solid $blue-light;
+    border-left: 0.2rem solid $pink;
+    border-right: 0.2rem solid $blue-dark;
+
+    p{
+      margin: 0;
+    }
   }
 
   strong {
