@@ -69,28 +69,28 @@ export default {
   align-items: stretch;
   align-content: stretch;
   justify-content: center;
-}
 
-a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 15rem;
-  background-color: $black-light;
-  padding: 0.5rem;
-  text-decoration: none;
-  span {
-    color: $blue-light;
-    font-size: 10rem;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .article-list {
+  @media only screen and (max-width: 400px) {
     width: 100%;
     padding: 0.5rem;
 
     grid-template-columns: 100%;
   }
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 15rem;
+    background-color: $black-light;
+    padding: 0.5rem;
+    text-decoration: none;
+    span {
+      color: $blue-light;
+      font-size: 10rem;
+    }
+  }
 }
+
+
 </style>

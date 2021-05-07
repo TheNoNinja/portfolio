@@ -47,11 +47,11 @@ export default {
   justify-content: center;
   align-items: center;
   overflow-y: auto;
-}
 
-.modal-content{
-  background-color: #1B1C20;
-  padding: 1rem;
-  margin: auto;
+  .modal-content{
+    background-color: #1B1C20;
+    padding: 1rem;
+    margin: auto;
+  }
 }
 </style>

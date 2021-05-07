@@ -41,21 +41,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-img {
-  width: 100%;
-}
+
 
 article {
   padding: 1rem;
   margin: 1rem auto;
   width: 80vw;
   background-color: $black-light;
-}
 
-@media only screen and (max-width: 540px) {
-  article {
+  @media only screen and (max-width: 540px) {
     width: 100vw;
     padding: 0.5rem;
+  }
+
+  img {
+    width: 100%;
   }
 }
 </style>

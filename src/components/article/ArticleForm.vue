@@ -141,31 +141,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.form-container {
-  display: flex;
-  flex-flow: row nowrap;
-}
+.container {
 
-.article-form div{
-  width: 30rem;
-  position: sticky;
-  top: 1rem;
-}
+  .form-container {
+    display: flex;
+    flex-flow: row nowrap;
+  }
 
-#article-preview{
-  margin-left: 1rem;
-  max-width: 60rem;
-  line-break: auto;
-  background-color: #0B0C10;
-  padding: 0.5rem;
-}
-label, input, textarea, select{
-  width: 100%;
-}
+  .article-form {
 
-textarea{
-  max-width: 100%;
-  min-width: 100%;
+    div {
+      width: 30rem;
+      position: sticky;
+      top: 1rem;
+    }
 
+    label, input, textarea, select{
+      width: 100%;
+    }
+
+    textarea{
+      max-width: 100%;
+      min-width: 100%;
+
+    }
+  }
+
+  #article-preview{
+    margin-left: 1rem;
+    max-width: 60rem;
+    line-break: auto;
+    background-color: #0B0C10;
+    padding: 0.5rem;
+  }
 }
 </style>

@@ -44,16 +44,15 @@ export default {
   background-color: #1B1C20;
   width: 20rem;
   padding: 1rem;
-}
 
-label{
-  width: 100%;
-  margin-bottom: 1rem;
-}
+  label{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 
-input{
-  width: 100%;
-  margin-bottom: 1rem;
+  input{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }
-
 </style>

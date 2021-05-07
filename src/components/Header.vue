@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <router-link :to="{ name: 'Home'}">
+  <header id="header">
+    <router-link :to="{ name: 'Home'}" class="home-link">
       <div class="titles">
         <div class="glitch">
           <h1 class="title" data-text="//CHRISTIAAN BRANT">//CHRISTIAAN BRANT</h1>
@@ -8,15 +8,29 @@
         <h3 class="sub-title">//PORTFOLIO</h3>
       </div>
     </router-link>
-    <nav class="categories">
-      <router-link v-for="category of orderedCategories" :key="category.name" class="category" :to="{name: category.name === 'Home' ? 'Home' : 'Category', params: {categoryId:category.id}}">{{category.name}}</router-link>
-
+    <nav id="categories-desktop">
+      <router-link v-for="category of orderedCategories" :key="category.name" class="category" :to="{name: category.name === 'Home' ? 'Home' : 'Category', params: category.name === 'Home' ? null : {categoryId:category.id}}">{{category.name}}</router-link>
       <UserConditional>
         <template v-slot:user="{user}">
           <a v-if="user" href="#" class="category categories" @click="openCategoriesModal()"><span class="material-icons">edit</span></a>
           <a v-if="user" href="#" class="category Sign-in" @click="auth.signOut()"><span class="material-icons">logout</span></a>
         </template>
       </UserConditional>
+    </nav>
+    <nav id="categories-mobile">
+      <a href="javascript:void(0);" @click="toggleMobileMenu"><span class="material-icons">menu</span></a>
+      <div id="mobile-menu">
+        <router-link v-for="category of orderedCategories" :key="category.name" class="category" :to="{name: category.name === 'Home' ? 'Home' : 'Category', params: category.name === 'Home' ? null : {categoryId:category.id}}">{{category.name}}</router-link>
+        <UserConditional>
+          <template v-slot:user="{user}">
+            <div v-if="user" class="user-actions">
+              <a href="#" class="category categories" @click="openCategoriesModal()"><span class="material-icons">edit</span></a>
+              <a href="#" class="category Sign-in" @click="auth.signOut()"><span class="material-icons">logout</span></a>
+            </div>
+
+          </template>
+        </UserConditional>
+      </div>
     </nav>
   </header>
 </template>
@@ -34,7 +48,8 @@ export default {
   data(){
     return {
       auth,
-      categories: []
+      categories: [],
+      navbarOffset: 0,
     }
   },
   firestore(){
@@ -47,12 +62,44 @@ export default {
       return [...this.categories].sort((a, b) => a.rank - b.rank);
     }
   },
+  mounted() {
+    window.addEventListener('scroll', this.handleStickyScroll);
+    const navbar = document.getElementById("categories-mobile");
+    this.navbarOffset = navbar.offsetTop;
+  },
+  unmounted () {
+    window.removeEventListener('scroll', this.handleStickyScroll);
+  },
   methods:{
     openCategoriesModal(){
       ModalBus.$emit("open", {
         component: CategoryForm,
         title: "Categories"
       });
+    },
+    toggleMobileMenu(){
+      const menu = document.getElementById("mobile-menu");
+
+      if (menu.style.display === "grid") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "grid";
+      }
+    },
+    handleStickyScroll (){
+      const navbar = document.getElementById("categories-mobile");
+      const menu = document.getElementById("mobile-menu");
+      const header = document.getElementById("header");
+
+      menu.style.display = "none";
+
+      if (window.pageYOffset >= this.navbarOffset) {
+        navbar.classList.add("sticky");
+        header.style.marginBottom = "1rem";
+      } else {
+        navbar.classList.remove("sticky");
+        header.style.marginBottom = "0rem";
+      }
     }
   }
 }
@@ -62,73 +109,139 @@ export default {
 header{
   padding-top: 1rem;
   background-color: $black-light;
-}
 
-a {
-  display: flex;
-  justify-content: center;
-}
-.titles {
-  color: $blue-light;
-}
-.glitch{
-  margin-bottom: 0.5rem;
-  position: relative;
+  .home-link {
+    display: grid;
+    justify-content: center;
+    max-width: 95vw;
+    overflow-x: hidden;
+    margin: 0 auto;
 
-  & > * {
-    text-align: inherit;
-    line-height: 1;
-    animation: glitch-anim 1s infinite alternate;
+    .titles {
+      color: $blue-light;
 
-    &:before,
-    &:after {
-      text-align: inherit;
-      width: 100%;
-      content: attr(data-text);
-      opacity: 1;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+      .glitch{
+        margin-bottom: 0.5rem;
+        position: relative;
 
-    &:before {
-      color: $pink;
-      left: -0.2rem;
-      overflow: hidden;
-      animation: glitch-anim-before 5s infinite alternate;
-      z-index: -1;
-      clip-path: inset(0 0 60% 0);
-    }
+        @media only screen and (max-width: 599px) {
+          .title {
+            font-size: 1.5rem;
+          }
+          .sub-title{
+            font-size: 1rem;
+          }
+        }
 
-    &:after {
-      color: $blue-dark;
-      left: 0.2rem;
-      overflow: hidden;
-      animation: glitch-anim-after 5s infinite alternate;
-      z-index: -2;
-      clip-path: inset(40% 0 0 0);
+        & > * {
+          text-align: inherit;
+          line-height: 1;
+          animation: glitch-anim 1s infinite alternate;
+
+          &:before,
+          &:after {
+            text-align: inherit;
+            width: 100%;
+            content: attr(data-text);
+            opacity: 1;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+
+          &:before {
+            color: $pink;
+            left: -0.2rem;
+            overflow: hidden;
+            animation: glitch-anim-before 5s infinite alternate;
+            z-index: -1;
+            clip-path: inset(0 0 60% 0);
+          }
+
+          &:after {
+            color: $blue-dark;
+            left: 0.2rem;
+            overflow: hidden;
+            animation: glitch-anim-after 5s infinite alternate;
+            z-index: -2;
+            clip-path: inset(40% 0 0 0);
+          }
+        }
+      }
     }
   }
-}
+  #categories-desktop {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    padding-top: 1rem;
 
-.categories {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  padding-top: 1rem;
-
-  a {
-    transition: all 0.1s ease-in-out;
-    color: $blue-light;
-    font-size: 1.2rem;
-    background-color: $black-light;
-    padding: 0.5rem 1rem;
-
-    &.router-link-active,
-    &:hover {
-      background-color: $black-dark;
+    @media only screen and (max-width: 599px) {
+      display: none;
     }
+
+    a {
+      transition: all 0.1s ease-in-out;
+      color: $blue-light;
+      font-size: 1.2rem;
+      background-color: $black-light;
+      padding: 0.5rem 1rem;
+
+      &.router-link-active,
+      &:hover {
+        background-color: $black-dark;
+      }
+    }
+  }
+  #categories-mobile {
+    overflow: hidden;
+    display: grid;
+    z-index: 10;
+    background-color: $black-light;
+
+    @media only screen and (min-width: 600px) {
+      display: none;
+    }
+    & > a {
+      justify-self: end;
+      margin-right: 1rem;
+      padding: 0.5rem 0.5rem 0.2rem 0.5rem;
+      margin-bottom: 0.5rem;
+
+      span {
+        font-size: 2rem;
+      }
+
+      &:hover {
+        background-color: $black-dark;
+      }
+    }
+
+    #mobile-menu {
+      display: none;
+
+      a {
+        padding: 0.5rem 1.5rem;
+        color: $blue-light;
+
+        &.router-link-active,
+        &:hover {
+          background-color: $black-dark;
+        }
+      }
+
+      .user-actions {
+        display: flex;
+        justify-content: space-evenly;
+
+      }
+    }
+  }
+  .sticky {
+    width: 100%;
+    position: fixed;
+    top: 0;
   }
 }
 

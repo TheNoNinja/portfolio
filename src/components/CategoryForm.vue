@@ -104,25 +104,28 @@ export default {
 <style scoped lang="scss">
 .container {
   width: 20rem;
-}
 
-.category-list p {
-  flex-grow: 1;
-}
+  .category-list {
 
-.category-item{
-  display: flex;
-  padding-top: 0.5rem;
-  justify-content: space-between;
-}
+    p {
+      flex-grow: 1;
+    }
 
-.category-form {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-}
+    .category-item {
+      display: flex;
+      padding-top: 0.5rem;
+      justify-content: space-between;
+    }
 
-.dragging {
-  opacity: 50%;
+    .dragging {
+      opacity: 50%;
+    }
+  }
+
+  .category-form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
 }
 </style>
